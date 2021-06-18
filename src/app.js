@@ -51,7 +51,7 @@ const paletteContainer = document.querySelector('.js-gallery');
 const cardsMarkup = creatImages(galleryItems);
 
 paletteContainer.insertAdjacentHTML('beforeend', cardsMarkup);
-paletteContainer.addEventListener('beforeend', cardsMarkup);
+paletteContainer.addEventListener('click', onPaletteContainerClick);
 
 function creatImages(galleryItems) {
   return galleryItems
@@ -59,7 +59,7 @@ function creatImages(galleryItems) {
       return `<li class="gallery__item">
   <a
     class="gallery__link"
-    href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
+    
   >
     <img
       class="gallery__image"
@@ -77,3 +77,13 @@ function creatImages(galleryItems) {
 //   document
 //     .querySelector('.js-gallery')
 //     .insertAdjacentHTML('beforeEnd', `<img src="${el.preview}" alt="${el.description}"></img>`);
+
+function onPaletteContainerClick(evt) {
+  const isGalleryImage = evt.target.classList.contains('gallery__image');
+  if (!isGalleryImage) {
+    return;
+  }
+  const imagesEl = evt.target;
+  imagesEl.classList.add('is-open');
+  console.log(evt.target.dataset.description);
+}
