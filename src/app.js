@@ -51,11 +51,24 @@ const paletteContainer = document.querySelector('.js-gallery');
 const cardsMarkup = creatImages(galleryItems);
 
 paletteContainer.insertAdjacentHTML('beforeend', cardsMarkup);
+paletteContainer.addEventListener('beforeend', cardsMarkup);
 
 function creatImages(galleryItems) {
   return galleryItems
-    .map(({ original }) => {
-      return `<img src="${original}" alt="${description}"></img>`;
+    .map(({ preview, original, description }) => {
+      return `<li class="gallery__item">
+  <a
+    class="gallery__link"
+    href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
+  >
+    <img
+      class="gallery__image"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
+    />
+  </a>
+</li>`;
     })
     .join('');
 }
