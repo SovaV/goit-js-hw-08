@@ -46,12 +46,16 @@ const galleryItems = [
     description: 'Lighthouse Coast Sea',
   },
 ];
-
-const paletteContainer = document.querySelector('.js-gallery');
+const refs = {
+  openModalWindow: document.querySelector('.js-gallery'),
+  closeModalBtn: document.querySelector('[data-action="close-lightbox"]'),
+  backdrop: document.querySelector('.js-lightbox'),
+};
 const cardsMarkup = creatImages(galleryItems);
 
-paletteContainer.insertAdjacentHTML('beforeend', cardsMarkup);
-paletteContainer.addEventListener('click', onPaletteContainerClick);
+refs.openModalWindow.innerHTML = cardsMarkup;
+refs.openModalWindow.addEventListener('click', onOpenModal);
+refs.closeModalBtn.addEventListener('click', onCloseModal);
 
 function creatImages(galleryItems) {
   return galleryItems
@@ -59,12 +63,12 @@ function creatImages(galleryItems) {
       return `<li class="gallery__item">
   <a
     class="gallery__link"
-    
   >
     <img
       class="gallery__image"
       src="${preview}"
-      data-source="${original}"
+  data-source="${original}"
+
       alt="${description}"
     />
   </a>
@@ -78,12 +82,18 @@ function creatImages(galleryItems) {
 //     .querySelector('.js-gallery')
 //     .insertAdjacentHTML('beforeEnd', `<img src="${el.preview}" alt="${el.description}"></img>`);
 
-function onPaletteContainerClick(evt) {
+function onOpenModal(evt) {
   const isGalleryImage = evt.target.classList.contains('gallery__image');
+
   if (!isGalleryImage) {
     return;
   }
+  refs.backdrop.classList.add('is-open');
   const imagesEl = evt.target;
-  imagesEl.classList.add('is-open');
-  console.log(evt.target.dataset.description);
+  console.log(refs.backdrop);
 }
+
+function onCloseModal() {
+  refs.backdrop.classList.remove('is-open');
+}
+// href = '${original}';
