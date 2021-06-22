@@ -50,19 +50,23 @@ const refs = {
   openModalWindow: document.querySelector('.js-gallery'),
   closeModalBtn: document.querySelector('[data-action="close-lightbox"]'),
   backdrop: document.querySelector('.js-lightbox'),
+  modalImage: document.querySelector('.lightbox__image'),
+  closeModalLightbox: document.querySelector('.lightbox__overlay'),
 };
 const cardsMarkup = creatImages(galleryItems);
 
 refs.openModalWindow.innerHTML = cardsMarkup;
 refs.openModalWindow.addEventListener('click', onOpenModal);
 refs.closeModalBtn.addEventListener('click', onCloseModal);
-
+refs.closeModalLightbox.addEventListener('click', onBackdropClick);
+refs.closeModalLightbox.addEventListener('click', onBackdropClick);
 function creatImages(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
       return `<li class="gallery__item">
   <a
     class="gallery__link"
+    href = '${original}';
   >
     <img
       class="gallery__image"
@@ -77,23 +81,32 @@ function creatImages(galleryItems) {
     .join('');
 }
 
-// for (let el of galleryItems)
-//   document
-//     .querySelector('.js-gallery')
-//     .insertAdjacentHTML('beforeEnd', `<img src="${el.preview}" alt="${el.description}"></img>`);
-
 function onOpenModal(evt) {
-  const isGalleryImage = evt.target.classList.contains('gallery__image');
-
+  const nextActiveImg = evt.target;
+  const isGalleryImage = nextActiveImg.classList.contains('gallery__image');
   if (!isGalleryImage) {
     return;
   }
   refs.backdrop.classList.add('is-open');
-  const imagesEl = evt.target;
-  console.log(refs.backdrop);
+  refs.modalImage.src = nextActiveImg.dataset.source;
+  evt.preventDefault();
+  window.addEventListener('keydown', onEsc);
 }
-
 function onCloseModal() {
   refs.backdrop.classList.remove('is-open');
+  refs.modalImage.src = '';
+  window.removeEventListener('keydown', onEsc);
 }
-// href = '${original}';
+
+// закриваємо по клику на div.lightbox__overlay.
+function onBackdropClick() {
+  onCloseModal();
+}
+// закриваємо по ESC
+function onEsc(evn) {
+  const ESC_KEY_CODE = 'Escape';
+  const isEscKey = evn.code === ESC_KEY_CODE;
+  if (isEscKey) {
+    onCloseModal();
+  }
+}
