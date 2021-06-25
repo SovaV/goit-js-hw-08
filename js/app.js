@@ -93,7 +93,7 @@ function onOpenModal(evt) {
   evt.preventDefault();
   window.addEventListener('keydown', onEsc);
   window.addEventListener('keydown', onArrowRight);
-  window.addEventListener('keydown', onArrowLeft);
+  // window.addEventListener('keydown', onArrowLeft);
 }
 function onCloseModal() {
   refs.backdrop.classList.remove('is-open');
@@ -128,7 +128,7 @@ const maxLength = galleryItems.length;
 
 const previousImg = () => {
   let imageIndex = findImageIndex();
-  nextImageIndex = imageIndex - 1;
+  // nextImageIndex = imageIndex - 1;
   imageIndex <= 0 ? (imageIndex = maxLength - 1) : imageIndex--;
   changeImg(imageIndex);
 };
@@ -143,11 +143,11 @@ function onArrowRight(evn) {
     nextImg();
   }
 }
-function onArrowLeft(evn) {
-  if (evn.code === 'ArrowLeft') {
-    previousImg();
-  }
-}
+// function onArrowLeft(evn) {
+//   if (evn.code === 'ArrowLeft') {
+//     previousImg();
+//   }
+// }
 // переключатєль стрелкою
 // function nexImg(evn) {
 //   console.log(evn);
