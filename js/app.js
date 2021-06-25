@@ -128,6 +128,7 @@ const maxLength = galleryItems.length;
 
 const previousImg = () => {
   let imageIndex = findImageIndex();
+  nextImageIndex = imageIndex - 1;
   imageIndex <= 0 ? (imageIndex = maxLength - 1) : imageIndex--;
   changeImg(imageIndex);
 };
