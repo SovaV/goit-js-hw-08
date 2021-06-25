@@ -52,6 +52,7 @@ const refs = {
   backdrop: document.querySelector('.js-lightbox'),
   modalImage: document.querySelector('.lightbox__image'),
   closeModalLightbox: document.querySelector('.lightbox__overlay'),
+  src: document.querySelector('.lightbox__image').src,
 };
 const cardsMarkup = creatImages(galleryItems);
 
@@ -91,6 +92,8 @@ function onOpenModal(evt) {
   refs.modalImage.src = nextActiveImg.dataset.source;
   evt.preventDefault();
   window.addEventListener('keydown', onEsc);
+  window.addEventListener('keydown', onArrowRight);
+  window.addEventListener('keydown', onArrowLeft);
 }
 function onCloseModal() {
   refs.backdrop.classList.remove('is-open');
@@ -110,3 +113,55 @@ function onEsc(evn) {
     onCloseModal();
   }
 }
+
+const findImageIndex = () => {
+  // console.log(findImageIndex);
+  return images.findIndex(image => image.original === refs.src);
+};
+const changeImg = imageIndex => {
+  const elem = images.find(function (value, index) {
+    if (imageIndex === index) return value;
+  });
+  document.querySelector('.lightbox');
+};
+const maxLength = images.length;
+
+const previousImg = () => {
+  let imageIndex = findImageIndex();
+  imageIndex <= 0 ? (imageIndex = maxLength - 1) : imageIndex--;
+  changeImg(imageIndex);
+};
+const nextImg = () => {
+  let imageIndex = findImageIndex();
+  nextImageIndex = imageIndex + 1;
+  nextImageIndex >= maxLength ? (imageIndex = maxLength + 1) : imageIndex++;
+  changeImg(imageIndex);
+};
+function onArrowRight(evn) {
+  if (evn.code === 'ArrowRight') {
+    nextImg();
+  }
+}
+function onArrowLeft(evn) {
+  if (evn.code === 'ArrowLeft') {
+    previousImg();
+  }
+}
+// переключатєль стрелкою
+// function nexImg(evn) {
+//   console.log(evn);
+//   const ARROWRIGHT_KEY_CODE = 'ArrowRight';
+//   const isArrowRightKey = evn.code === ARROWRIGHT_KEY_CODE;
+//   if (isArrowRightKey) {
+//     onCloseModal();
+//   }
+// }
+
+// function previousImg(evn) {
+//   console.log(evn);
+//   const ARROWLEFT_KEY_CODE = 'ArrowLeft';
+//   const isArrowLeftKey = evn.code === ARROWLEFT_KEY_CODE;
+//   if (isArrowLeftKey) {
+//     onCloseModal();
+//   }
+// }
