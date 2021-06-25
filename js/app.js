@@ -116,15 +116,15 @@ function onEsc(evn) {
 
 const findImageIndex = () => {
   // console.log(findImageIndex);
-  return images.findIndex(image => image.original === refs.src);
+  return galleryItems.findIndex(image => image.original === refs.src);
 };
 const changeImg = imageIndex => {
-  const elem = images.find(function (value, index) {
+  const elem = galleryItems.find(function (value, index) {
     if (imageIndex === index) return value;
   });
   document.querySelector('.lightbox');
 };
-const maxLength = images.length;
+const maxLength = galleryItems.length;
 
 const previousImg = () => {
   let imageIndex = findImageIndex();
