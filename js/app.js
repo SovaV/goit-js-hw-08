@@ -52,7 +52,6 @@ const refs = {
   backdrop: document.querySelector('.js-lightbox'),
   modalImage: document.querySelector('.lightbox__image'),
   closeModalLightbox: document.querySelector('.lightbox__overlay'),
-  src: document.querySelector('.lightbox__image').src,
 };
 const cardsMarkup = creatImages(galleryItems);
 
@@ -93,7 +92,7 @@ function onOpenModal(evt) {
   evt.preventDefault();
   window.addEventListener('keydown', onEsc);
   window.addEventListener('keydown', onArrowRight);
-  // window.addEventListener('keydown', onArrowLeft);
+  window.addEventListener('keydown', onArrowLeft);
 }
 function onCloseModal() {
   refs.backdrop.classList.remove('is-open');
@@ -115,32 +114,36 @@ function onEsc(evn) {
 }
 
 const findImageIndex = () => {
-  // console.log(findImageIndex);
-  return galleryItems.findIndex(image => image.original === refs.src);
+  const src = document.querySelector('.lightbox__image').src;
+  return galleryItems.findIndex(image => image.original === src);
 };
 const changeImg = imageIndex => {
   const elem = galleryItems.find(function (value, index) {
     if (imageIndex === index) return value;
   });
-  document.querySelector('.lightbox');
+  console.log('elem', elem.original);
+  document.querySelector('.lightbox__image').src = elem.original;
 };
 const maxLength = galleryItems.length;
-
 const previousImg = () => {
   let imageIndex = findImageIndex();
-  // nextImageIndex = imageIndex - 1;
   imageIndex <= 0 ? (imageIndex = maxLength - 1) : imageIndex--;
   changeImg(imageIndex);
 };
 const nextImg = () => {
   let imageIndex = findImageIndex();
-  nextImageIndex = imageIndex + 1;
-  nextImageIndex >= maxLength ? (imageIndex = maxLength + 1) : imageIndex++;
+  let nextImageIndex = imageIndex + 1;
+  nextImageIndex >= maxLength ? (imageIndex = 0) : imageIndex++;
   changeImg(imageIndex);
 };
 function onArrowRight(evn) {
   if (evn.code === 'ArrowRight') {
     nextImg();
+  }
+}
+function onArrowLeft(evn) {
+  if (evn.code === 'ArrowLeft') {
+    previousImg();
   }
 }
 // function onArrowLeft(evn) {
