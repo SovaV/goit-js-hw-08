@@ -58,8 +58,8 @@ const cardsMarkup = creatImages(galleryItems);
 refs.openModalWindow.innerHTML = cardsMarkup;
 refs.openModalWindow.addEventListener('click', onOpenModal);
 refs.closeModalBtn.addEventListener('click', onCloseModal);
-refs.closeModalLightbox.addEventListener('click', onBackdropClick);
-refs.closeModalLightbox.addEventListener('click', onBackdropClick);
+refs.closeModalLightbox.addEventListener('click', onCloseModal);
+
 function creatImages(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -98,12 +98,16 @@ function onCloseModal() {
   refs.backdrop.classList.remove('is-open');
   refs.modalImage.src = '';
   window.removeEventListener('keydown', onEsc);
+  window.removeEventListener('keydown', onArrowRight);
+  window.removeEventListener('keydown', onArrowLeft);
 }
 
 // закриваємо по клику на div.lightbox__overlay.
-function onBackdropClick() {
-  onCloseModal();
-}
+// function onBackdropClick() {
+//   console.log('клик по бекдроп');
+//   // onCloseModal();
+// }
+
 // закриваємо по ESC
 function onEsc(evn) {
   const ESC_KEY_CODE = 'Escape';
@@ -113,6 +117,7 @@ function onEsc(evn) {
   }
 }
 
+// переключаем стрелочками тик тидик)
 const findImageIndex = () => {
   const src = document.querySelector('.lightbox__image').src;
   return galleryItems.findIndex(image => image.original === src);
