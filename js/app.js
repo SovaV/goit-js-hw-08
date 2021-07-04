@@ -45,6 +45,26 @@ const galleryItems = [
     original: 'https://cdn.pixabay.com/photo/2019/05/17/04/35/lighthouse-4208843_1280.jpg',
     description: 'Lighthouse Coast Sea',
   },
+  {
+    preview: 'https://demolitionparts.com/wp-content/uploads/2018/04/IMG_5211-510x340.jpg',
+    original: 'https://demolitionparts.com/wp-content/uploads/2018/04/IMG_5211-1024x1365.jpg',
+    description: 'wp-content',
+  },
+  {
+    preview: 'https://demolitionparts.com/wp-content/uploads/2018/04/IMG_8715.JPG-510x340.jpeg',
+    original: 'https://demolitionparts.com/wp-content/uploads/2018/04/IMG_8715.JPG-1024x682.jpeg',
+    description: 'rr',
+  },
+  {
+    preview: 'https://demolitionparts.com/wp-content/uploads/2018/04/IMG_8741.JPG-510x340.jpeg',
+    original: 'https://demolitionparts.com/wp-content/uploads/2018/04/IMG_8741.JPG-1024x682.jpeg',
+    description: 'rdsr',
+  },
+  {
+    preview: 'https://demolitionparts.com/wp-content/uploads/2018/04/IMG_8747.JPG-510x340.jpeg',
+    original: 'https://demolitionparts.com/wp-content/uploads/2018/04/IMG_8747.JPG-1024x682.jpeg',
+    description: 'rdsdsr',
+  },
 ];
 const refs = {
   openModalWindow: document.querySelector('.js-gallery'),
@@ -52,6 +72,7 @@ const refs = {
   backdrop: document.querySelector('.js-lightbox'),
   modalImage: document.querySelector('.lightbox__image'),
   closeModalLightbox: document.querySelector('.lightbox__overlay'),
+  lazyImages: document.querySelectorAll('img[loading="lazy"]'),
 };
 const cardsMarkup = creatImages(galleryItems);
 
@@ -60,6 +81,7 @@ refs.openModalWindow.addEventListener('click', onOpenModal);
 refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.closeModalLightbox.addEventListener('click', onBackdropClick);
 refs.closeModalLightbox.addEventListener('click', onBackdropClick);
+
 function creatImages(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -69,8 +91,9 @@ function creatImages(galleryItems) {
     href = '${original}';
   >
     <img
+    loading="lazy"
       class="gallery__image"
-      src="${preview}"
+     src="${preview}"
   data-source="${original}"
 
       alt="${description}"
