@@ -72,7 +72,6 @@ const refs = {
   backdrop: document.querySelector('.js-lightbox'),
   modalImage: document.querySelector('.lightbox__image'),
   closeModalLightbox: document.querySelector('.lightbox__overlay'),
-  lazyImages: document.querySelectorAll('img[loading="lazy"]'),
 };
 const cardsMarkup = creatImages(galleryItems);
 
@@ -81,6 +80,15 @@ refs.openModalWindow.addEventListener('click', onOpenModal);
 refs.closeModalBtn.addEventListener('click', onCloseModal);
 refs.closeModalLightbox.addEventListener('click', onCloseModal);
 
+const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+
+lazyImages.forEach(image => {
+  image.addEventListener('load', onImageLoaded);
+});
+function onImageLoaded(evt) {
+  console.log('карт загрузилась');
+  console.log(evt.target);
+}
 function creatImages(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -94,7 +102,6 @@ function creatImages(galleryItems) {
       class="gallery__image"
      src="${preview}"
   data-source="${original}"
-
       alt="${description}"
     />
   </a>
