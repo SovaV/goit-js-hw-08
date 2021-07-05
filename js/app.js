@@ -86,8 +86,8 @@ lazyImages.forEach(image => {
   image.addEventListener('load', onImageLoaded);
 });
 function onImageLoaded(evt) {
-  console.log('карт загрузилась');
-  console.log(evt.target);
+  // console.log('карт загрузилась');
+  // console.log(evt.target);
 }
 function creatImages(galleryItems) {
   return galleryItems
@@ -174,11 +174,7 @@ function onArrowLeft(evn) {
     previousImg();
   }
 }
-// function onArrowLeft(evn) {
-//   if (evn.code === 'ArrowLeft') {
-//     previousImg();
-//   }
-// }
+
 // переключатєль стрелкою
 // function nexImg(evn) {
 //   console.log(evn);
